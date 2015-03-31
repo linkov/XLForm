@@ -2,7 +2,7 @@
 //  SelectorsFormViewController.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -390,6 +390,26 @@ NSString *const kSelectorWithStoryboardId = @"selectorWithStoryboardId";
 {
     return [UIStoryboard storyboardWithName:@"iPhoneStoryboard" bundle:nil];
 }
+
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    UIBarButtonItem * barButton = [[UIBarButtonItem alloc] initWithTitle:@"Disable" style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(disableEnable:)];
+    barButton.possibleTitles = [NSSet setWithObjects:@"Disable", @"Enable", nil];
+    self.navigationItem.rightBarButtonItem = barButton;
+}
+
+-(void)disableEnable:(UIBarButtonItem *)button
+{
+    self.form.disabled = !self.form.disabled;
+    [button setTitle:(self.form.disabled ? @"Enable" : @"Disable")];
+    [self.tableView endEditing:YES];
+    [self.tableView reloadData];
+}
+
 
 
 @end

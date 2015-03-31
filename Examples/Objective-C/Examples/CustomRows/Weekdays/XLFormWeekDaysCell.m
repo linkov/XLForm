@@ -1,7 +1,7 @@
 //  XLFormWeekDaysCell.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -100,6 +100,14 @@ NSString *const kSaturday = @"saturday";
     self.thursdayButton.selected = [[value objectForKey:kThursday] boolValue];
     self.fridayButton.selected = [[value objectForKey:kFriday] boolValue];
     self.saturdayButton.selected = [[value objectForKey:kSaturday] boolValue];
+    
+    [self.sundayButton setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
+    [self.mondayButton setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
+    [self.tuesdayButton setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
+    [self.wednesdayButton setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
+    [self.thursdayButton setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
+    [self.fridayButton setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
+    [self.saturdayButton setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
 }
 
 -(NSString *)getDayFormButton:(id)sender

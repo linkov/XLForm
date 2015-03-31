@@ -2,7 +2,7 @@
 //  OthersFormViewController.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,7 +25,6 @@
 
 #import "MapViewController.h"
 #import "OthersFormViewController.h"
-#import "XLFormCustomCell.h"
 
 NSString *const kSwitchBool = @"switchBool";
 NSString *const kSwitchCheck = @"switchBool";
@@ -97,12 +96,7 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     [row.cellConfigAtConfigure setObject:@(4) forKey:@"steps"];
     [section addFormRow:row];
     
-    // Custom cell
-    XLFormRowDescriptor *customRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:kCustom rowType:@"XLFormRowDescriptorTypeCustom"];
-    // Must set custom cell or add custom cell to cellClassesForRowDescriptorTypes dictionary before XLFormViewController loaded
-    customRowDescriptor.cellClass = [XLFormCustomCell class];
-    [section addFormRow:customRowDescriptor];
-    
+
     // Info cell
     XLFormRowDescriptor *infoRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:kInfo rowType:XLFormRowDescriptorTypeInfo];
     infoRowDescriptor.title = @"Version";
@@ -171,5 +165,24 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     }
     [self deselectFormRow:sender];
 }
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    UIBarButtonItem * barButton = [[UIBarButtonItem alloc] initWithTitle:@"Disable" style:UIBarButtonItemStylePlain
+                                                target:self
+                                                action:@selector(disableEnable:)];
+    barButton.possibleTitles = [NSSet setWithObjects:@"Disable", @"Enable", nil];
+    self.navigationItem.rightBarButtonItem = barButton;
+}
+
+-(void)disableEnable:(UIBarButtonItem *)button
+{
+    self.form.disabled = !self.form.disabled;
+    [button setTitle:(self.form.disabled ? @"Enable" : @"Disable")];
+    [self.tableView endEditing:YES];
+    [self.tableView reloadData];
+}
+
 
 @end
